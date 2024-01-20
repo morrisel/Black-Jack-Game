@@ -3,15 +3,16 @@
 /* gcc -std=c89 -Wall -Wextra -Wconversion -Wno-main v1_4_0/black_jack.c -o black_jack */
 #include <stdio.h>
 
+/* --- Card representation ----------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
 
-/* Card representation */
-/* structure member declarations */
+/* struct members declarations */
 struct Card;
 struct CardList;
 struct GameStateAccessor;
 struct GameState;
 
-/* structures definitions */
+/* structs definitions for structs member declarations */
 struct Card
 {
 	/* uint8_t data; <-- since c99	*/		/* [3:0] - suit, [7:4] - rank */
@@ -44,12 +45,13 @@ struct GameState
 	struct GameStateAccessor pot;
 };
 
-/* methods declaration for structure declarations */
+/* Functions 'set_cash' and 'set_pot' declaration for GameStateAccessor struct definition */
 void set_cash(struct GameState *state, int cash);
 void set_pot(struct GameState *state, int pot);
 
 
-/* Function Prototype */
+/* --- Function Prototype ------------------------------------------------------------ */
+/* ----------------------------------------------------------------------------------- */
 void init_cardlist(struct CardList *cardlist);
 void fill_deck(struct CardList *deck);
 void clear_cardlist(struct CardList *cardlist);
@@ -57,8 +59,8 @@ int get_rank(struct Card *card);
 struct Card *card_new(int rank, int suit);
 struct Card *card_remove_at(struct CardList *cardlist, size_t index);
 struct Card *card_draw(struct CardList *cardlist);
-void card_push(struct CardList *cardlist, Card *card);
-void print_cards(const char *player, CardList *hand, int hide_second);
+void card_push(struct CardList *cardlist, struct Card *card);
+void print_cards(const char *player, struct CardList *hand, int hide_second);
 void print_game_state(struct GameState *state);
 int calculate_hand_value(struct CardList *hand);
 void betting_phase(struct GameState *state);
@@ -78,6 +80,7 @@ void main(void)
 	return;
 }
 
+/* Function definition for 'set_cash' and 'set_pot' */
 void set_cash(struct GameState *state, int cash)
 {
 	/* state->cash = cash; */
@@ -90,39 +93,8 @@ void set_pot(struct GameState *state, int pot)
 	state->pot.set_pot(&state->pot, pot);
 }
 
-/* Function Prototype */
-/*void init_cardlist(struct CardList *cardlist);*/
-/*void fill_deck(struct CardList *deck);*/
-/*void clear_cardlist(struct CardList *cardlist);*/
-/*int get_rank(struct Card *card);*/
-/*struct Card *card_new(int rank, int suit);*/
-/*struct Card *card_remove_at(struct CardList *cardlist, size_t index);*/
-/*struct Card *card_draw(struct CardList *cardlist);*/
-/*void card_push(struct CardList *cardlist, Card *card);*/
-/*void print_cards(const char *player, CardList *hand, int hide_second);*/
-/*void print_game_state(struct GameState *state);*/
-/*int calculate_hand_value(struct CardList *hand);*/
-/*void betting_phase(struct GameState *state);*/
-/*void initial_deal_phase(struct GameState *state);*/
-/*void blackjack_check_phase(struct GameState *state);*/
-/*void dealer_draw_phase(struct GameState *state);*/
-/*void reset_cards_phase(struct GameState *state);*/
 
 
-/*
-void main(void)
-{
-	puts("Hello");
-
-	puts("World");
-
-
-	return;
-}
-*/
-
-
-/*
 void init_cardlist(struct CardList *cardlist __attribute__((unused)))
 {	
 }
@@ -148,10 +120,10 @@ struct Card *card_draw(struct CardList *cardlist __attribute__((unused)))
 { 
 	return NULL;
 } 
-void card_push(struct CardList *cardlist __attribute__((unused)), Card *card __attribute__((unused))) 
+void card_push(struct CardList *cardlist __attribute__((unused)), struct Card *card __attribute__((unused))) 
 { 
 } 
-void print_cards(const char *player __attribute__((unused)), CardList *hand __attribute__((unused)), int hide_second __attribute__((unused))) 
+void print_cards(const char *player __attribute__((unused)), struct CardList *hand __attribute__((unused)), int hide_second __attribute__((unused))) 
 { 
 } 
 void print_game_state(struct GameState *state __attribute__((unused))) 
@@ -179,7 +151,7 @@ void dealer_draw_phase(struct GameState *state __attribute__((unused)))
 void reset_cards_phase(struct GameState *state __attribute__((unused))) 
 { 
 } 
-*/
+
 
 /* compilation: */
 /* gcc -ansi -pedantic -Wall -Wextra -Wconversion -g v1_4_0/black_jack.c -o black_jack */
